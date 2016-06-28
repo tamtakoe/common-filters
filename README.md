@@ -45,13 +45,8 @@ Also you can use `Object.assign(commonFilters, customFilters)` in other situatio
 
 - **return** (`Any`) - Filtered value
 
+
 ### Filters:
-
-- **custom** - uses custom validator from options
-  * arg (`Function`) - Custom function which get `value` and `options` and return result of validation (message or undefined)
-
-- **required | presence | empty** - validates that the value isn't empty.
-
 
 #### *Types*
 
