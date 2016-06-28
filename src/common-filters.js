@@ -49,7 +49,7 @@ const filters = {
     },
 
     toBoolean: function(value) {
-        if (value === 'false' || value === 'undefined' || value === 'null' || this.toNumber(value) <= 0) {
+        if (value === 'false' || value === 'undefined' || value === 'null' || value === 'off' || value === 'no' || this.toNumber(value) <= 0) {
             return false;
         }
 
@@ -81,7 +81,7 @@ const filters = {
 
     //String
     trim: function(value) {
-        if (typeof value === 'string') {
+        if (isString(value)) {
             return value.trim();
         }
 
@@ -89,7 +89,7 @@ const filters = {
     },
 
     prefix: function(value, prefix) {
-        if (typeof value === 'string' && typeof prefix === 'string') {
+        if (isString(value)) {
             return prefix + value;
         }
 
@@ -97,15 +97,23 @@ const filters = {
     },
 
     postfix: function(value, postfix) {
-        if (typeof value === 'string' && typeof postfix === 'string') {
+        if (isString(value)) {
             return value + postfix;
         }
 
         return value;
     },
 
+    shorten: function(value, length) {
+        if (isString(value) && value.length > length) {
+            return value.substring(0, length <= 3 ? length : length - 3) + (length <= 3 ? '' : '...');
+        }
+
+        return value;
+    },
+
     toLowerCase: function(value) {
-        if (typeof value === 'string') {
+        if (isString(value)) {
             return value.toLowerCase();
         }
 
@@ -113,7 +121,7 @@ const filters = {
     },
 
     toUpperCase: function(value) {
-        if (typeof value === 'string') {
+        if (isString(value)) {
             return value.toUpperCase();
         }
 
@@ -121,12 +129,119 @@ const filters = {
     },
 
     toCamelCase: function(value) {
-        //TODO
+        if (isString(value)) {
+            return value.replace(/^([A-Z])|[\s\-_](\w)/g, function(match, p1, p2) {
+                if (p2) return p2.toUpperCase();
+                return p1.toLowerCase();
+            });
+        }
+
         return value;
     },
 
     toSnakeCase: function(value) {
         //TODO
+        return value;
+    },
+
+    replace: function(value, options) {
+        var replacement = typeof options.replacement === 'function' ? options.replacement : function() {
+            return options.replacement;
+        };
+
+        if (isString(value)) {
+            try {
+                return value.replace(new RegExp(options.pattern), replacement);
+            } catch(e) {
+                console.error("replace error", e);
+                return value;
+            }
+        }
+
+        return value;
+    },
+
+    split: function(value, seperator) {
+        if (isString(value)) {
+            return value.split(seperator);
+        }
+
+        return value;
+    },
+
+    indexOf: function(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    //Format
+    format: function(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    //Sanitize
+    html2string: function(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    sanitizeEmail: function(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    sanitizeUrl: function(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    sanitizeString: function(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    //Math
+    hex2bin: function(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    //Array
+    join: function(value, seperator) {
+        if (isArray(value)) {
+            return value.join(seperator);
+        }
+
+        return value;
+    },
+
+    reverse: function(value) {
+        if (isArray(value) || isString(value)) {
+            return value.reverse();
+        }
+
         return value;
     }
 };

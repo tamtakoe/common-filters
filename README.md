@@ -90,9 +90,29 @@ Also you can use `Object.assign(commonFilters, customFilters)` in other situatio
 - **postfix** - add postfix to value
   * arg (`String`) - postfix
 
+- **shorten** - shorten string by specific length and change end to '...'
+  * arg (`String`) - length
+
 - **toLowerCase** - convert value to lower case
 
 - **toUpperCase** - convert value to upper case
+
+- **toCamelCase** - convert common strings, dashes-strings or shakes_strings to camelCaseStrings
+
+- **replace** - replace by pattern
+  * pattern (`RegExp` or `String`) - RegExp
+  * replacement (`String`) - replacement
+
+- **split** - split string by separator to array
+  * arg (`String`) - separator
+
+- **reverse** - reverse string or array
+
+
+#### *Array* (other types are not filtered)
+
+- **join** - join string by separator to string
+  * arg (`String`) - separator
 
 ## Tests
 

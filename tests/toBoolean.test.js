@@ -71,4 +71,12 @@ describe('toBoolean', function() {
     it('false string transform to boolean', function() {
         expect(filters.toBoolean('false')).to.deep.equal(false);
     });
+
+    it('off string transform to boolean', function() {
+        expect(filters.toBoolean('off')).to.deep.equal(false);
+    });
+
+    it('no string transform to boolean', function() {
+        expect(filters.toBoolean('no')).to.deep.equal(false);
+    });
 });

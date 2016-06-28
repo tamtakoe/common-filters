@@ -54,7 +54,7 @@ var filters = {
     },
 
     toBoolean: function toBoolean(value) {
-        if (value === 'false' || value === 'undefined' || value === 'null' || this.toNumber(value) <= 0) {
+        if (value === 'false' || value === 'undefined' || value === 'null' || value === 'off' || value === 'no' || this.toNumber(value) <= 0) {
             return false;
         }
 
@@ -86,7 +86,7 @@ var filters = {
 
     //String
     trim: function trim(value) {
-        if (typeof value === 'string') {
+        if (isString(value)) {
             return value.trim();
         }
 
@@ -94,7 +94,7 @@ var filters = {
     },
 
     prefix: function prefix(value, _prefix) {
-        if (typeof value === 'string' && typeof _prefix === 'string') {
+        if (isString(value)) {
             return _prefix + value;
         }
 
@@ -102,15 +102,23 @@ var filters = {
     },
 
     postfix: function postfix(value, _postfix) {
-        if (typeof value === 'string' && typeof _postfix === 'string') {
+        if (isString(value)) {
             return value + _postfix;
         }
 
         return value;
     },
 
+    shorten: function shorten(value, length) {
+        if (isString(value) && value.length > length) {
+            return value.substring(0, length <= 3 ? length : length - 3) + (length <= 3 ? '' : '...');
+        }
+
+        return value;
+    },
+
     toLowerCase: function toLowerCase(value) {
-        if (typeof value === 'string') {
+        if (isString(value)) {
             return value.toLowerCase();
         }
 
@@ -118,7 +126,7 @@ var filters = {
     },
 
     toUpperCase: function toUpperCase(value) {
-        if (typeof value === 'string') {
+        if (isString(value)) {
             return value.toUpperCase();
         }
 
@@ -126,12 +134,119 @@ var filters = {
     },
 
     toCamelCase: function toCamelCase(value) {
-        //TODO
+        if (isString(value)) {
+            return value.replace(/^([A-Z])|[\s\-_](\w)/g, function (match, p1, p2) {
+                if (p2) return p2.toUpperCase();
+                return p1.toLowerCase();
+            });
+        }
+
         return value;
     },
 
     toSnakeCase: function toSnakeCase(value) {
         //TODO
+        return value;
+    },
+
+    replace: function replace(value, options) {
+        var replacement = typeof options.replacement === 'function' ? options.replacement : function () {
+            return options.replacement;
+        };
+
+        if (isString(value)) {
+            try {
+                return value.replace(new RegExp(options.pattern), replacement);
+            } catch (e) {
+                console.error("replace error", e);
+                return value;
+            }
+        }
+
+        return value;
+    },
+
+    split: function split(value, seperator) {
+        if (isString(value)) {
+            return value.split(seperator);
+        }
+
+        return value;
+    },
+
+    indexOf: function indexOf(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    //Format
+    format: function format(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    //Sanitize
+    html2string: function html2string(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    sanitizeEmail: function sanitizeEmail(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    sanitizeUrl: function sanitizeUrl(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    sanitizeString: function sanitizeString(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    //Math
+    hex2bin: function hex2bin(value) {
+        if (isString(value)) {
+            //TODO
+        }
+
+        return value;
+    },
+
+    //Array
+    join: function join(value, seperator) {
+        if (isArray(value)) {
+            return value.join(seperator);
+        }
+
+        return value;
+    },
+
+    reverse: function reverse(value) {
+        if (isArray(value) || isString(value)) {
+            return value.reverse();
+        }
+
         return value;
     }
 };
