@@ -24,9 +24,18 @@ filters.round('0.105', -2); //0.11
 
 ## API
 
-### Filters.add, Filters.load
+### Filters.add
 
 Use this methods for adding custom filters in simple format.
+```js
+Filters.add('trim', trim);
+//or
+Filters.add({
+  toLowerCase: toLowerCase,
+  toUpperCase: toUpperCase
+});
+
+```
 Also you can use `Object.assign(commonFilters, customFilters)` in other situations
 
 

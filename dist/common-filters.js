@@ -248,6 +248,10 @@ var filters = {
         }
 
         return value;
+    },
+
+    compact: function compact(value) {
+        //TODO remove empty values
     }
 };
 
@@ -306,11 +310,7 @@ function isDefined(obj) {
     return obj !== null && obj !== undefined;
 }
 
-/* Class */
-
-function Filters() {}
-
-Filters.prototype.add = function (name, filter) {
+function addFilter(name, filter, params) {
     this[name] = function (value, arg, options) {
         var args = Array.prototype.slice.call(arguments, 2);
         var values = [value];
@@ -331,20 +331,26 @@ Filters.prototype.add = function (name, filter) {
 
         return filter.apply(this, values.concat(args));
     };
+}
 
-    return this;
-};
+/* Class */
 
-Filters.prototype.load = function (filtersObj) {
+function Filters() {}
+
+Filters.prototype.add = function (filterName, filter, params) {
     var _this = this;
 
-    Object.keys(filtersObj).forEach(function (key) {
-        return _this.add(key, filtersObj[key]);
-    });
+    if (typeof filterName === 'string') {
+        addFilter.call(this, filterName, filter, params);
+    } else {
+        Object.keys(filterName).forEach(function (key) {
+            return addFilter.call(_this, key, filterName[key], filter);
+        });
+    }
 
     return this;
 };
 
-module.exports = new Filters().load(filters);
+module.exports = new Filters().add(filters);
 },{}]},{},[1])(1)
 });

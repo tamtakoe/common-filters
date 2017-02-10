@@ -243,6 +243,10 @@ const filters = {
         }
 
         return value;
+    },
+    
+    compact: function(value) {
+        //TODO remove empty values
     }
 };
 
@@ -302,11 +306,8 @@ function isDefined(obj) {
     return obj !== null && obj !== undefined;
 }
 
-/* Class */
 
-function Filters() {}
-
-Filters.prototype.add = function(name, filter) {
+function addFilter(name, filter, params) {
     this[name] = function(value, arg, options) {
         var args = Array.prototype.slice.call(arguments, 2);
         var values = [value];
@@ -327,14 +328,23 @@ Filters.prototype.add = function(name, filter) {
 
         return filter.apply(this, values.concat(args));
     };
+}
+
+/* Class */
+
+function Filters() {}
+
+
+Filters.prototype.add = function(filterName, filter, params) {
+
+    if (typeof filterName === 'string') {
+        addFilter.call(this, filterName, filter, params);
+
+    } else {
+        Object.keys(filterName).forEach(key => addFilter.call(this, key, filterName[key], filter));
+    }
 
     return this;
 };
 
-Filters.prototype.load = function(filtersObj) {
-    Object.keys(filtersObj).forEach(key => this.add(key, filtersObj[key]));
-
-    return this;
-};
-
-module.exports = (new Filters()).load(filters);
+module.exports = (new Filters()).add(filters);
