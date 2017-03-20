@@ -1,7 +1,7 @@
 {
   "name": "common-filters",
   "description": "Library with common filters",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": {
     "name": "Oleg Istomin",
     "email": "tamtakoe@gmail.com"
