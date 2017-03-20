@@ -15,18 +15,12 @@ const filters = {
         return Array.prototype.slice.call(value);
     },
 
-    toNumber: function(value) {
-        return Number(value);
-    },
+    toNumber: toNumber,
 
-    toFinite: function(value) {
-        value = this.toNumber(value) ;
-        
-        return isNaN(value) ? 0 : value;
-    },
+    toFinite: toFinite,
 
     toInteger: function(value) {
-        value = this.toFinite(value);
+        value = toFinite(value);
         var remainder = value % 1;
 
         return remainder ? value - remainder : value;
@@ -48,16 +42,10 @@ const filters = {
         return date;
     },
 
-    toBoolean: function(value) {
-        if (value === 'false' || value === 'undefined' || value === 'null' || value === 'off' || value === 'no' || this.toNumber(value) <= 0) {
-            return false;
-        }
-
-        return Boolean(value);
-    },
+    toBoolean: toBoolean,
 
     toUndefined: function(value) {
-        if (this.toBoolean(value)) {
+        if (toBoolean(value)) {
             return value;
         }
     },
@@ -252,6 +240,24 @@ const filters = {
 
 
 /* Utils */
+
+function toBoolean(value) {
+    if (value === 'false' || value === 'undefined' || value === 'null' || value === 'off' || value === 'no' || toNumber(value) <= 0) {
+        return false;
+    }
+
+    return Boolean(value);
+}
+
+function toNumber(value) {
+    return Number(value);
+}
+
+function toFinite(value) {
+    value = toNumber(value) ;
+
+    return isNaN(value) ? 0 : value;
+}
 
 // Checks if the value is a number. This function does not consider NaN a
 // number like many other `isNumber` functions do.
