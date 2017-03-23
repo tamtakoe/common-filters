@@ -1,6 +1,6 @@
 const filters = {
     toObject: function(value) {
-        return Object.assign({}, value);
+        return assign({}, value);
     },
 
     toArray: function(value) {
@@ -240,6 +240,21 @@ const filters = {
 
 
 /* Utils */
+/**
+ * Extend objects
+ *
+ * @param {Object} first argument
+ * @param {Any} other arguments
+ *
+ * @returns {Object}
+ */
+function assign(){
+    for(var i = 1; i < arguments.length; i++)
+        for(var k in arguments[i])
+            if(arguments[i].hasOwnProperty(k))
+                arguments[0][k] = arguments[i][k];
+    return arguments[0];
+}
 
 function toBoolean(value) {
     if (value === 'false' || value === 'undefined' || value === 'null' || value === 'off' || value === 'no' || toNumber(value) <= 0) {
@@ -311,7 +326,6 @@ function isString(value) {
 function isDefined(obj) {
     return obj !== null && obj !== undefined;
 }
-
 
 function addFilter(name, filter, params) {
     this[name] = function(value, arg, options) {

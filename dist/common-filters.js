@@ -3,7 +3,7 @@
 
 var filters = {
     toObject: function toObject(value) {
-        return Object.assign({}, value);
+        return assign({}, value);
     },
 
     toArray: function toArray(value) {
@@ -244,6 +244,21 @@ var filters = {
 };
 
 /* Utils */
+/**
+ * Extend objects
+ *
+ * @param {Object} first argument
+ * @param {Any} other arguments
+ *
+ * @returns {Object}
+ */
+function assign() {
+    for (var i = 1; i < arguments.length; i++) {
+        for (var k in arguments[i]) {
+            if (arguments[i].hasOwnProperty(k)) arguments[0][k] = arguments[i][k];
+        }
+    }return arguments[0];
+}
 
 function toBoolean(value) {
     if (value === 'false' || value === 'undefined' || value === 'null' || value === 'off' || value === 'no' || toNumber(value) <= 0) {
