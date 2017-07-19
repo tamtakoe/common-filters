@@ -232,6 +232,14 @@ const filters = {
 
         return value;
     },
+
+    slice: function(value, options) {
+        if (isArray(value) || isString(value)) {
+            return value.slice(options.begin, options.end);
+        }
+
+        return value;
+    },
     
     compact: function(value) {
         //TODO remove empty values

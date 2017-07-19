@@ -117,11 +117,16 @@ Also you can use `Object.assign(commonFilters, customFilters)` in other situatio
 
 - **reverse** - reverse string or array
 
+- **slice** - get substring or sub array
+  * begin (`Number`) - start index
+  * end (`Number`) - end index
+  
 
 #### *Array* (other types are not filtered)
 
 - **join** - join string by separator to string
   * arg (`String`) - separator
+
 
 ## Tests
 

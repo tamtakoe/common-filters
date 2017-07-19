@@ -238,6 +238,14 @@ var filters = {
         return value;
     },
 
+    slice: function slice(value, options) {
+        if (isArray(value) || isString(value)) {
+            return value.slice(options.begin, options.end);
+        }
+
+        return value;
+    },
+
     compact: function compact(value) {
         //TODO remove empty values
     }
