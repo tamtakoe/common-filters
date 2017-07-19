@@ -115,9 +115,9 @@ Also you can use `Object.assign(commonFilters, customFilters)` in other situatio
 - **split** - split string by separator to array
   * arg (`String`) - separator
 
-- **reverse** - reverse string or array
+- **reverse** - reverse string
 
-- **slice** - get substring or sub array
+- **slice** - get substring
   * begin (`Number`) - start index
   * end (`Number`) - end index
   
@@ -126,6 +126,12 @@ Also you can use `Object.assign(commonFilters, customFilters)` in other situatio
 
 - **join** - join string by separator to string
   * arg (`String`) - separator
+  
+- **reverse** - reverse array
+
+- **slice** - get sub array
+  * begin (`Number`) - start index
+  * end (`Number`) - end index
 
 
 ## Tests
