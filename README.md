@@ -63,6 +63,8 @@ Also you can use `Object.assign(commonFilters, customFilters)` in other situatio
 
 - **toArray** - convert value to array
 
+- **castArray** - wrap value to array if it's not one
+
 - **toNumber** - convert value to number
 
 - **toFinite** - convert value to finite number

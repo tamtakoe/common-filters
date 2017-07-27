@@ -20,6 +20,18 @@ var filters = {
         return Array.prototype.slice.call(value);
     },
 
+    castArray: function castArray(value) {
+        if (value === undefined) {
+            return [];
+        }
+
+        if (isArray(value)) {
+            return value;
+        }
+
+        return [value];
+    },
+
     toNumber: toNumber,
 
     toFinite: toFinite,
